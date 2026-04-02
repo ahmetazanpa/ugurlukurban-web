@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-// import logo from "../public/logo.png";
-// import logo2 from "../public/logo.png";
-import logo from "../public/logo3.png";
+import logo from "../public/logo.png";
 
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
@@ -89,9 +87,9 @@ export default function Home() {
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-neutral-dark">
       <div className="flex h-full grow flex-col">
         {/* Header */}
-        <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-4 backdrop-blur-md md:px-20">
+        <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-2 backdrop-blur-md md:px-20">
           <div className="flex items-center gap-3">
-            <Image src={logo} alt="Logo" className="flex items-stretch" width={100} height={100} />
+            <Image src={logo} alt="Logo" className="flex p-4" width={200} height={100} />
           </div>
           <div className="flex flex-1 items-center justify-end gap-8">
             <nav className="hidden items-center gap-8 lg:flex">
@@ -463,22 +461,22 @@ export default function Home() {
                     location_on
                   </span>
                   <span>
-                    Bağlarbaşı Mah. Fetih Sokak No:45
+                    Oruçoğlu, Oruçoğlu Yolu :75, 34983, 34104
                     <br />
-                    Üsküdar, İstanbul
+                    Şile, İstanbul
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     call
                   </span>
-                  <span>+90 (212) 555 44 33</span>
+                  <span>+90 (555) 071 05 79</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     mail
                   </span>
-                  <span>bilgi@kurbankesim.com</span>
+                  <span></span>
                 </li>
               </ul>
             </div>
