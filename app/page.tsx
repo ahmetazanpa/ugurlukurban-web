@@ -1,14 +1,96 @@
+'use client';
+
+import { useState } from 'react';
 import Image from "next/image";
-import logo from "../public/logo.png";
+import logo from "../public/logo2.png";
+import logo2 from "../public/logo.png";
 
 export default function Home() {
+  const [selectedType, setSelectedType] = useState('buyuk');
+
+  const handleWhatsAppClick = (grupName, grupPrice) => {
+    const hayvanTipi = selectedType === 'kucuk' ? 'Küçük Baş' : 'Büyük Baş';
+    const message = `${hayvanTipi} -- ${grupName} (${grupPrice}) satın almak istiyorum`;
+    const phoneNumber = '905550710579';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const getHisseGruplari = () => {
+    if (selectedType === 'kucuk') {
+      return [
+        {
+          name: "1. Grup",
+          subtitle: "Ekonomik & Bereketli",
+          price: "18.000 - 22.000 ₺",
+          features: ["Hijyenik Kesim", "Pay Dağıtımı", "Video Gönderimi"],
+          popular: false,
+        },
+        {
+          name: "2. Grup",
+          subtitle: "Standart & Kalite",
+          price: "22.000 - 27.000 ₺",
+          features: [
+            "Standart Hisse Ağırlığı",
+            "Adrese Teslimat (Opsiyonel)",
+            "Profesyonel Parçalama",
+          ],
+          popular: true,
+        },
+        {
+          name: "3. Grup",
+          subtitle: "Premium & Konfor",
+          price: "27.000+ ₺",
+          features: [
+            "Maksimum Hisse Ağırlığı",
+            "Özel Paketleme",
+            "Anlık Bilgilendirme",
+          ],
+          popular: false,
+        },
+      ];
+    } else {
+      return [
+        {
+          name: "1. Grup",
+          subtitle: "Ekonomik & Bereketli",
+          price: "28.000 - 36.000 ₺",
+          features: ["Hijyenik Kesim", "Pay Dağıtımı", "Video Gönderimi"],
+          popular: false,
+        },
+        {
+          name: "2. Grup",
+          subtitle: "Standart & Kalite",
+          price: "36.000 - 42.000 ₺",
+          features: [
+            "Standart Hisse Ağırlığı",
+            "Adrese Teslimat (Opsiyonel)",
+            "Profesyonel Parçalama",
+          ],
+          popular: true,
+        },
+        {
+          name: "3. Grup",
+          subtitle: "Premium & Konfor",
+          price: "42.000 - 48.000 ₺",
+          features: [
+            "Maksimum Hisse Ağırlığı",
+            "Özel Paketleme",
+            "Anlık Bilgilendirme",
+          ],
+          popular: false,
+        },
+      ];
+    }
+  };
+
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-neutral-dark">
       <div className="flex h-full grow flex-col">
         {/* Header */}
         <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-4 backdrop-blur-md md:px-20">
           <div className="flex items-center gap-3">
-            <Image src={logo} alt="Logo" className="flex items-stretch" width={48} height={24} />
+            <Image src={logo} alt="Logo" className="flex items-stretch" width={100} height={100} />
           </div>
           <div className="flex flex-1 items-center justify-end gap-8">
             <nav className="hidden items-center gap-8 lg:flex">
@@ -80,47 +162,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Kurban Türleri Section */}
-          <section className="px-6 py-16 md:px-20" id="services">
-            <div className="mb-12 flex flex-col">
-              <div className="mb-2 flex items-center gap-2">
-                <div className="h-1 w-10 rounded-full bg-accent-gold" />
-                <span className="text-sm font-bold uppercase tracking-widest text-accent-gold">
-                  Kurban Seçenekleri
-                </span>
-              </div>
-              <h2 className="text-3xl font-black text-neutral-dark md:text-4xl">
-                Kurban Türleri
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-              {kurbanTurleri.map((item) => (
-                <div
-                  key={item.title}
-                  className="group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
-                >
-                  <div
-                    className="mb-6 aspect-square w-full overflow-hidden rounded-xl bg-cover bg-center"
-                    style={{ backgroundImage: `url('${item.image}')` }}
-                  />
-                  <h3 className="mb-2 text-xl font-bold text-neutral-dark transition-colors group-hover:text-primary">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-neutral-muted">
-                    {item.description}
-                  </p>
-                  <div className="mt-auto flex items-center pt-4 text-sm font-bold text-primary">
-                    İncele{" "}
-                    <span className="material-symbols-outlined ml-1 text-sm transition-transform group-hover:translate-x-1">
-                      arrow_forward
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Hisse Grupları Section */}
+            {/* Hisse Grupları Section */}
           <section className="bg-background-dark px-6 py-20 text-white md:px-20">
             <div className="mx-auto max-w-6xl">
               <div className="mb-16 text-center">
@@ -135,8 +177,33 @@ export default function Home() {
                   en uygun seçeneği belirleyin.
                 </p>
               </div>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                {hisseGruplari.map((grup) => (
+
+              {/* Hayvan Tipi Seçim Butonları */}
+              <div className="flex gap-4 mb-12 justify-center">
+                <button
+                  onClick={() => setSelectedType('buyuk')}
+                  className={`flex-1 max-w-xs py-3 px-8 rounded-xl font-bold text-lg transition-all ${
+                    selectedType === 'buyuk'
+                      ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
+                      : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
+                  }`}
+                >
+                  Büyük Baş
+                </button>
+                <button
+                  onClick={() => setSelectedType('kucuk')}
+                  className={`flex-1 max-w-xs py-3 px-8 rounded-xl font-bold text-lg transition-all ${
+                    selectedType === 'kucuk'
+                      ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
+                      : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
+                  }`}
+                >
+                  Küçük Baş
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                {getHisseGruplari().map((grup) => (
                   <div
                     key={grup.name}
                     className={
@@ -180,19 +247,91 @@ export default function Home() {
                       ))}
                     </ul>
                     <button
+                      onClick={() => handleWhatsAppClick(grup.name, grup.price)}
                       className={
                         grup.popular
                           ? "w-full rounded-xl bg-primary py-4 font-bold text-neutral-dark transition-all hover:bg-primary/90"
                           : "w-full rounded-xl border border-primary/50 py-4 font-bold text-primary transition-all hover:bg-primary hover:text-neutral-dark"
                       }
                     >
-                      Seç ve Devam Et
+                      Seç ve Gönder
                     </button>
                   </div>
                 ))}
               </div>
+
+
             </div>
           </section>
+
+          {/* Kurban Türleri Section */}
+          <section className="px-6 py-16 md:px-20" id="services">
+            <div className="mb-12 flex flex-col">
+              <div className="mb-2 flex items-center gap-2">
+                <div className="h-1 w-10 rounded-full bg-accent-gold" />
+                <span className="text-sm font-bold uppercase tracking-widest text-accent-gold">
+                  Kurban Seçenekleri
+                </span>
+              </div>
+              <h2 className="text-3xl font-black text-neutral-dark md:text-4xl">
+                Kurban Türleri
+              </h2>
+            </div>
+            {/* Mobile Slider - Desktop Grid */}
+            <div className="hidden lg:grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+              {kurbanTurleri.map((item) => (
+                <div
+                  key={item.title}
+                  className="group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
+                >
+                  <div
+                    className="mb-6 aspect-square w-full overflow-hidden rounded-xl bg-cover bg-center"
+                    style={{ backgroundImage: `url('${item.image}')` }}
+                  />
+                  <h3 className="mb-2 text-xl font-bold text-neutral-dark transition-colors group-hover:text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-neutral-muted">
+                    {item.description}
+                  </p>
+                  <div className="mt-auto flex items-center pt-4 text-sm font-bold text-primary">
+                    İncele{" "}
+                    <span className="material-symbols-outlined ml-1 text-sm transition-transform group-hover:translate-x-1">
+                      arrow_forward
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Horizontal Slider */}
+            <div className="lg:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+              {kurbanTurleri.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex-shrink-0 w-72 snap-center group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
+                >
+                  <div
+                    className="mb-6 aspect-square w-full overflow-hidden rounded-xl bg-cover bg-center"
+                    style={{ backgroundImage: `url('${item.image}')` }}
+                  />
+                  <h3 className="mb-2 text-xl font-bold text-neutral-dark transition-colors group-hover:text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-neutral-muted">
+                    {item.description}
+                  </p>
+                  <div className="mt-auto flex items-center pt-4 text-sm font-bold text-primary">
+                    İncele{" "}
+                    <span className="material-symbols-outlined ml-1 text-sm transition-transform group-hover:translate-x-1">
+                      arrow_forward
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+  
 
           {/* SSS Section */}
           <section
@@ -240,7 +379,7 @@ export default function Home() {
           <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-12 md:grid-cols-4">
             <div className="col-span-1">
               <div className="mb-6 flex items-center gap-3">
-                <Image src={logo} alt="Logo" className="flex items-stretch" width={48} height={24} />
+                <Image src={logo2} alt="Logo" className="flex items-stretch" width={75} height={45} />
               </div>
               <p className="mb-6 text-sm leading-relaxed text-slate-400">
                 İslami hassasiyetlere uygun, dürüst ve şeffaf hizmet
@@ -374,6 +513,25 @@ export default function Home() {
 
 const kurbanTurleri = [
   {
+    title: "VACİP KURBAN",
+    description: "Kurban Bayramı günlerinde kesilen kurban.",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAkVaqlJizfXPBEhOpKv0tFP-CtIAyYDMPbutg5wSln2qL2O7mL-vZUvl9SAnzHZ-F0hOLpDY-HBCDBENqgjNzDLLQBxC4VsBbz3LLwFyoMMf5JCLhTP1VtrvIbMonzTFwg7S7CNvPPvfFrMZeZp54jiFWGUwCwb8k5d2OBfdKokpl-yApEvDepjAT-d49HOhChhDPsQodCgGNhej6tzt8rZqS6eJBAL21faoCffY_cbCdKApSVNiv-AAONWgrjKdwbENiyPAIQgA",
+  },
+    {
+    title: "NAFİLE KURBAN",
+    description: "Allah rızası için kesilen kurban.",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDXGscGXPkfTzSBIEoFZPisaSzCBUoq8q_GMF2OjLGTbqa0DFIu7GA1r8v2Cts5qc7n2WLe5Evoy5SmMUn6gol9msAZtgbd5PsG8_aAiLetXVtx4W8V4SST-UAlXZVgPEm5LkKV7oVcVcmRnlYcfZUQTqHAs33f0s8TZ4yJjK0EY7VURXklHMEdgFu-jdgf6Fv4nFHpW8n3c8R0uL8kwhofP5pTkVJcNbLPKno590dTnfNmBMYR5nterrEU694RZeqrUDKADU8wqw",
+  },
+    {
+    title: "ŞİFA KURBAN",
+    description: "Hastalardan kurtulma niyetiyle kesilen kurban.",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDbOqHufqt-xjQuG37N3UtHGyMmK9iJ32dOoUC9d90lmLrQhl-YqclpPMwLIXqTUKFRzNkBJs3KPNmwNRseLLvcW751cD89Fs0JrptAeF10Pv7m3sclUaVr3pK__EzNKViJmawI2Xjw90ifMoHskRZ9QwbVjEUt6_025IRXh3SQUuDJX4dcl0RXiQQPcC2oe35GrnSwQJgSeprEgBV-RJHoVuT0t9GovhalPVNHE2ey4FDA9d4TaOvemXC55Y3S44clvKwVGQ4uYw",
+  },
+
+  {
     title: "ADAK KURBAN",
     description: "Niyetinizin gerçekleşmesi için vaat edilen kurban.",
     image:
@@ -385,57 +543,10 @@ const kurbanTurleri = [
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuBDDDIGVWIjuEtb9fNWzgrxwG_CYVmWWOwFd2coADQpWLn8aQdgZG2WOQexdu6lEcnOgFVfGPp0vZcCAabDKFrpoLRwI_RA4S21J9UeNo1Q2K_UohiwoQVhxP7vC-iUSCEU9uVuFrZug4a957gudRM4NblX85MMFs36MaoeZQagZFNCSLPlIpxVS_2-5pvXX31Z3jefWdxGarpIDtbAtjkxJpmtZSw6ZLhsuWhhRaQO3zYLk289jYyXWEKjFLlgHy3PJinESJgdBw",
   },
-  {
-    title: "ŞİFA KURBAN",
-    description: "Hastalardan kurtulma niyetiyle kesilen kurban.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDbOqHufqt-xjQuG37N3UtHGyMmK9iJ32dOoUC9d90lmLrQhl-YqclpPMwLIXqTUKFRzNkBJs3KPNmwNRseLLvcW751cD89Fs0JrptAeF10Pv7m3sclUaVr3pK__EzNKViJmawI2Xjw90ifMoHskRZ9QwbVjEUt6_025IRXh3SQUuDJX4dcl0RXiQQPcC2oe35GrnSwQJgSeprEgBV-RJHoVuT0t9GovhalPVNHE2ey4FDA9d4TaOvemXC55Y3S44clvKwVGQ4uYw",
-  },
-  {
-    title: "NAFİLE KURBAN",
-    description: "Allah rızası için kesilen kurban.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDXGscGXPkfTzSBIEoFZPisaSzCBUoq8q_GMF2OjLGTbqa0DFIu7GA1r8v2Cts5qc7n2WLe5Evoy5SmMUn6gol9msAZtgbd5PsG8_aAiLetXVtx4W8V4SST-UAlXZVgPEm5LkKV7oVcVcmRnlYcfZUQTqHAs33f0s8TZ4yJjK0EY7VURXklHMEdgFu-jdgf6Fv4nFHpW8n3c8R0uL8kwhofP5pTkVJcNbLPKno590dTnfNmBMYR5nterrEU694RZeqrUDKADU8wqw",
-  },
-  {
-    title: "VACİP KURBAN",
-    description: "Kurban Bayramı günlerinde kesilen kurban.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAkVaqlJizfXPBEhOpKv0tFP-CtIAyYDMPbutg5wSln2qL2O7mL-vZUvl9SAnzHZ-F0hOLpDY-HBCDBENqgjNzDLLQBxC4VsBbz3LLwFyoMMf5JCLhTP1VtrvIbMonzTFwg7S7CNvPPvfFrMZeZp54jiFWGUwCwb8k5d2OBfdKokpl-yApEvDepjAT-d49HOhChhDPsQodCgGNhej6tzt8rZqS6eJBAL21faoCffY_cbCdKApSVNiv-AAONWgrjKdwbENiyPAIQgA",
-  },
+
 ];
 
-const hisseGruplari = [
-  {
-    name: "1. Grup",
-    subtitle: "Ekonomik & Bereketli",
-    price: "11.500 ₺",
-    features: ["Hijyenik Kesim", "Pay Dağıtımı", "Video Gönderimi"],
-    popular: false,
-  },
-  {
-    name: "2. Grup",
-    subtitle: "Standart & Kalite",
-    price: "13.250 ₺",
-    features: [
-      "Standart Hisse Ağırlığı",
-      "Adrese Teslimat (Opsiyonel)",
-      "Profesyonel Parçalama",
-    ],
-    popular: true,
-  },
-  {
-    name: "3. Grup",
-    subtitle: "Premium & Konfor",
-    price: "15.000 ₺",
-    features: [
-      "Maksimum Hisse Ağırlığı",
-      "Özel Paketleme",
-      "Anlık Bilgilendirme",
-    ],
-    popular: false,
-  },
-];
+
 
 const sssData = [
   {
