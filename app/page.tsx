@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-import logo from "../public/logo2.png";
-import logo2 from "../public/logo.png";
+// import logo from "../public/logo.png";
+// import logo2 from "../public/logo.png";
+import logo from "../public/logo3.png";
 
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
 
-  const handleWhatsAppClick = (grupName, grupPrice) => {
+  const handleWhatsAppClick = (grupName: string, grupPrice: string) => {
     const hayvanTipi = selectedType === 'kucuk' ? 'Küçük Baş' : 'Büyük Baş';
     const message = `${hayvanTipi} -- ${grupName} (${grupPrice}) satın almak istiyorum`;
     const phoneNumber = '905550710579';
@@ -379,7 +380,7 @@ export default function Home() {
           <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-12 md:grid-cols-4">
             <div className="col-span-1">
               <div className="mb-6 flex items-center gap-3">
-                <Image src={logo2} alt="Logo" className="flex items-stretch" width={75} height={45} />
+                <Image src={logo} alt="Logo" className="flex items-stretch" width={75} height={45} />
               </div>
               <p className="mb-6 text-sm leading-relaxed text-slate-400">
                 İslami hassasiyetlere uygun, dürüst ve şeffaf hizmet
