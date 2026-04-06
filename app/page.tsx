@@ -460,7 +460,6 @@ export default function Home() {
                   <span className="material-symbols-outlined text-primary">
                     call
                   </span>
-                  <span>+90 5550710579</span>
 
                   <span>+90 (555) 071 05 79</span>
 
