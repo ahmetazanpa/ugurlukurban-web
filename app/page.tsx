@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-import logo from "../public/logo2.png";
+//import logo from "../public/logo2.png";
 import logo2 from "../public/logo.png";
 
 export default function Home() {
@@ -90,7 +90,7 @@ export default function Home() {
         {/* Header */}
         <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-4 backdrop-blur-md md:px-20">
           <div className="flex items-center gap-3">
-            <Image src={logo} alt="Logo" className="flex items-stretch" width={100} height={100} />
+            <Image src={logo2} alt="Logo" className="flex items-stretch" width={100} height={100} />
           </div>
           <div className="flex flex-1 items-center justify-end gap-8">
             <nav className="hidden items-center gap-8 lg:flex">
@@ -119,9 +119,11 @@ export default function Home() {
                 İletişim
               </a>
             </nav>
-            <button className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
+            <a 
+            href='https://bagis.ugurlar.org'
+            className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
               <span className="truncate">Bağış Yap</span>
-            </button>
+            </a>
           </div>
         </header>
 
@@ -388,28 +390,20 @@ export default function Home() {
               </p>
               <div className="flex gap-4">
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
+                  href="https://www.instagram.com/ugurlukurban"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    public
-                  </span>
+                  <i className="fa-brands fa-instagram"></i>
                 </a>
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
+                  href="https://wa.me/905550710579"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    share
-                  </span>
-                </a>
-                <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
-                >
-                  <span className="material-symbols-outlined text-xl">
-                    mail
-                  </span>
+                  <i className="fa-brands fa-whatsapp"></i>
                 </a>
               </div>
             </div>
@@ -471,13 +465,13 @@ export default function Home() {
                   <span className="material-symbols-outlined text-primary">
                     call
                   </span>
-                  <span>+90 (212) 555 44 33</span>
+                  <span>+90 5550710579</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     mail
                   </span>
-                  <span>bilgi@kurbankesim.com</span>
+                  <span>ugurlukurban@gmail.com</span>
                 </li>
               </ul>
             </div>
