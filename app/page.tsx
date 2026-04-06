@@ -155,9 +155,11 @@ export default function Home() {
                   kesim ve bağış hizmeti ile emanetiniz emin ellerde.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <button className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded-full bg-primary px-8 text-lg font-bold text-neutral-dark shadow-xl shadow-primary/30 transition-all hover:bg-primary/90">
+                  <a 
+                  href="https://bagis.ugurlar.org"
+                  className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded-full bg-primary px-8 text-lg font-bold text-neutral-dark shadow-xl shadow-primary/30 transition-all hover:bg-primary/90">
                     Hemen Bağış Yap
-                  </button>
+                  </a>
                   <button className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 text-lg font-bold text-white backdrop-blur-md transition-all hover:bg-white/20">
                     Hizmetlerimizi İncele
                   </button>
