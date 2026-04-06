@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-//import logo from "../public/logo2.png";
-import logo2 from "../public/logo.png";
+import logo from "../public/logo.png";
 
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
 
-  const handleWhatsAppClick = (grupName, grupPrice) => {
+  const handleWhatsAppClick = (grupName: string, grupPrice: string) => {
     const hayvanTipi = selectedType === 'kucuk' ? 'Küçük Baş' : 'Büyük Baş';
     const message = `${hayvanTipi} -- ${grupName} (${grupPrice}) satın almak istiyorum`;
     const phoneNumber = '905550710579';
@@ -88,9 +87,9 @@ export default function Home() {
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-neutral-dark">
       <div className="flex h-full grow flex-col">
         {/* Header */}
-        <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-4 backdrop-blur-md md:px-20">
+        <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-2 backdrop-blur-md md:px-20">
           <div className="flex items-center gap-3">
-            <Image src={logo2} alt="Logo" className="flex items-stretch" width={100} height={100} />
+            <Image src={logo} alt="Logo" className="flex p-4" width={200} height={100} />
           </div>
           <div className="flex flex-1 items-center justify-end gap-8">
             <nav className="hidden items-center gap-8 lg:flex">
@@ -119,11 +118,9 @@ export default function Home() {
                 İletişim
               </a>
             </nav>
-            <a 
-            href='https://bagis.ugurlar.org'
-            className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
+            <button className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
               <span className="truncate">Bağış Yap</span>
-            </a>
+            </button>
           </div>
         </header>
 
@@ -381,7 +378,7 @@ export default function Home() {
           <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-12 md:grid-cols-4">
             <div className="col-span-1">
               <div className="mb-6 flex items-center gap-3">
-                <Image src={logo2} alt="Logo" className="flex items-stretch" width={75} height={45} />
+                <Image src={logo} alt="Logo" className="flex items-stretch" width={75} height={45} />
               </div>
               <p className="mb-6 text-sm leading-relaxed text-slate-400">
                 İslami hassasiyetlere uygun, dürüst ve şeffaf hizmet
@@ -390,20 +387,28 @@ export default function Home() {
               </p>
               <div className="flex gap-4">
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
-                  href="https://www.instagram.com/ugurlukurban"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
+                  href="#"
                 >
-                  <i className="fa-brands fa-instagram"></i>
+                  <span className="material-symbols-outlined text-xl">
+                    public
+                  </span>
                 </a>
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
-                  href="https://wa.me/905550710579"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
+                  href="#"
                 >
-                  <i className="fa-brands fa-whatsapp"></i>
+                  <span className="material-symbols-outlined text-xl">
+                    share
+                  </span>
+                </a>
+                <a
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
+                  href="#"
+                >
+                  <span className="material-symbols-outlined text-xl">
+                    mail
+                  </span>
                 </a>
               </div>
             </div>
@@ -456,22 +461,22 @@ export default function Home() {
                     location_on
                   </span>
                   <span>
-                    Bağlarbaşı Mah. Fetih Sokak No:45
+                    Oruçoğlu, Oruçoğlu Yolu :75, 34983, 34104
                     <br />
-                    Üsküdar, İstanbul
+                    Şile, İstanbul
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     call
                   </span>
-                  <span>+90 5550710579</span>
+                  <span>+90 (555) 071 05 79</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     mail
                   </span>
-                  <span>ugurlukurban@gmail.com</span>
+                  <span></span>
                 </li>
               </ul>
             </div>
