@@ -89,6 +89,9 @@ export default function Home() {
         {/* Header */}
         <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 px-6 py-2 backdrop-blur-md md:px-20">
           <div className="flex items-center gap-3">
+
+           
+
             <Image src={logo} alt="Logo" className="flex p-4" width={200} height={100} />
           </div>
           <div className="flex flex-1 items-center justify-end gap-8">
@@ -118,9 +121,11 @@ export default function Home() {
                 İletişim
               </a>
             </nav>
-            <button className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
+            <a 
+            href='https://bagis.ugurlar.org'
+            className="flex h-10 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
               <span className="truncate">Bağış Yap</span>
-            </button>
+            </a>
           </div>
         </header>
 
@@ -387,28 +392,20 @@ export default function Home() {
               </p>
               <div className="flex gap-4">
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
+                  href="https://www.instagram.com/ugurlukurban"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    public
-                  </span>
+                  <i className="fa-brands fa-instagram"></i>
                 </a>
                 <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
+                  className="flex size-10 items-center justify-center rounded-full bg-slate-700 transition-all hover:bg-primary hover:text-neutral-dark text-sm"
+                  href="https://wa.me/905550710579"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    share
-                  </span>
-                </a>
-                <a
-                  className="flex size-10 items-center justify-center rounded-full bg-slate-800 transition-all hover:bg-primary hover:text-neutral-dark"
-                  href="#"
-                >
-                  <span className="material-symbols-outlined text-xl">
-                    mail
-                  </span>
+                  <i className="fa-brands fa-whatsapp"></i>
                 </a>
               </div>
             </div>
@@ -436,19 +433,12 @@ export default function Home() {
                 <li>
                   <a
                     className="transition-colors hover:text-primary"
-                    href="#"
+                    href='https://bagis.ugurlar.org'
                   >
                     Bağış Yap
                   </a>
                 </li>
-                <li>
-                  <a
-                    className="transition-colors hover:text-primary"
-                    href="#"
-                  >
-                    Vekalet İşlemleri
-                  </a>
-                </li>
+    
               </ul>
             </div>
             <div>
@@ -470,13 +460,19 @@ export default function Home() {
                   <span className="material-symbols-outlined text-primary">
                     call
                   </span>
+                  <span>+90 5550710579</span>
+
                   <span>+90 (555) 071 05 79</span>
+
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-primary">
                     mail
                   </span>
+
+                  <span>ugurlukurban@gmail.com</span>
                   <span></span>
+
                 </li>
               </ul>
             </div>
