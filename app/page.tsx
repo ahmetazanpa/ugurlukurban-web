@@ -108,9 +108,10 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <a 
-                  href="https://bagis.ugurlar.org"
+                  href="#hisse-gruplari"
+                  onClick={(e) => { e.preventDefault(); document.getElementById('hisse-gruplari')?.scrollIntoView({ behavior: 'smooth' }); }}
                   className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded-full bg-primary px-8 text-lg font-bold text-neutral-dark shadow-xl shadow-primary/30 transition-all hover:bg-primary/90">
-                    Hemen Bağış Yap
+                    Hisselerimiz
                   </a>
                   <button className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 text-lg font-bold text-white backdrop-blur-md transition-all hover:bg-white/20">
                     Hizmetlerimizi İncele
@@ -121,7 +122,7 @@ export default function Home() {
           </section>
 
             {/* Hisse Grupları Section */}
-          <section className="bg-background-dark px-6 py-20 text-white md:px-20">
+          <section id="hisse-gruplari" className="bg-background-dark px-6 py-20 text-white md:px-20">
             <div className="mx-auto max-w-6xl">
               <div className="mb-16 text-center">
                 <h2 className="mb-4 font-bold uppercase tracking-[0.2em] text-accent-gold">

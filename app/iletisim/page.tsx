@@ -7,39 +7,19 @@ export default function IletisimPage() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactSubject, setContactSubject] = useState('');
   const [contactMessage, setContactMessage] = useState('');
-  const [contactLoading, setContactLoading] = useState(false);
-  const [contactStatus, setContactStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setContactLoading(true);
-    setContactStatus('idle');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: contactName,
-          email: contactEmail,
-          subject: contactSubject,
-          message: contactMessage,
-        }),
-      });
-      if (res.ok) {
-        setContactStatus('success');
-        setContactName('');
-        setContactEmail('');
-        setContactSubject('');
-        setContactMessage('');
-        setTimeout(() => setContactStatus('idle'), 5000);
-      } else {
-        setContactStatus('error');
-      }
-    } catch {
-      setContactStatus('error');
-    } finally {
-      setContactLoading(false);
-    }
+
+    const mailTo = 'ugurlukurban@gmail.com';
+    const subject = encodeURIComponent(
+      contactSubject || 'İletişim Formu Mesajı'
+    );
+    const body = encodeURIComponent(
+      `Ad Soyad: ${contactName}\nE-posta: ${contactEmail}\n\nMesaj:\n${contactMessage}`
+    );
+
+    window.location.href = `mailto:${mailTo}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -59,7 +39,7 @@ export default function IletisimPage() {
           </h1>
           <p className="mx-auto max-w-2xl text-neutral-muted">
             Görüş, öneri ve şikayetlerinizi aşağıdaki formu doldurarak bize iletebilirsiniz.
-            En kısa sürede sizinle iletişime geçeceğiz.
+            Formu doldurduktan sonra e-posta uygulamanız açılacaktır.
           </p>
         </div>
 
@@ -128,28 +108,14 @@ export default function IletisimPage() {
                 </div>
                 <button
                   type="submit"
-                  disabled={contactLoading}
-                  className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-8 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] disabled:opacity-50"
+                  className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-8 text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98]"
                 >
-                  {contactLoading ? (
-                    <span className="animate-spin material-symbols-outlined text-lg">progress_activity</span>
-                  ) : (
-                    <span className="material-symbols-outlined text-lg">send</span>
-                  )}
-                  {contactLoading ? 'Gönderiliyor...' : 'Mesajı Gönder'}
+                  <span className="material-symbols-outlined text-lg">mail</span>
+                  E-posta Uygulamasını Aç
                 </button>
-                {contactStatus === 'success' && (
-                  <div className="flex items-center gap-2 rounded-xl bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
-                    <span className="material-symbols-outlined text-green-500">check_circle</span>
-                    Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağız.
-                  </div>
-                )}
-                {contactStatus === 'error' && (
-                  <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-                    <span className="material-symbols-outlined text-red-500">error</span>
-                    Bir hata oluştu. Lütfen tekrar deneyin.
-                  </div>
-                )}
+                <p className="text-center text-xs text-slate-400">
+                  Butona tıkladığınızda e-posta uygulamanız açılacak ve bilgiler otomatik olarak doldurulacaktır.
+                </p>
               </form>
             </div>
           </div>
