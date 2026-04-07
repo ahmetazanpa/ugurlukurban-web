@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Public_Sans } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import FloatingContact from "./components/FloatingContact";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -31,7 +34,16 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${publicSans.variable} antialiased`}>{children}</body>
+      <body className={`${publicSans.variable} antialiased`}>
+        <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-neutral-dark">
+          <div className="flex h-full grow flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <FloatingContact />
+        </div>
+      </body>
     </html>
   );
 }
