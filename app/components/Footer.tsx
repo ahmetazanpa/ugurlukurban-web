@@ -84,11 +84,13 @@ export default function Footer() {
               <span className="material-symbols-outlined text-primary">
                 location_on
               </span>
-              <span>
-                Oruçoğlu, Oruçoğlu Yolu :75, 34983, 34104
-                <br />
-                Şile, İstanbul
-              </span>
+              <a href="https://maps.app.goo.gl/ixsSUYutBQf7QPSE8" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">
+                <span>
+                  Oruçoğlu, Oruçoğlu Yolu :75, 34983, 34104
+                  <br />
+                  Şile, İstanbul
+                </span>
+              </a>
             </li>
             <li className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">

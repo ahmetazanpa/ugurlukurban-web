@@ -137,7 +137,7 @@ export default function IletisimPage() {
                   <div>
                     <h3 className="text-sm font-bold text-neutral-dark">Telefon</h3>
                     <p className="text-sm text-neutral-muted">+90 (555) 071 05 79</p>
-                    <p className="mt-1 text-xs text-slate-400">Hafta içi: 09:00 - 18:00</p>
+                    <p className="mt-1 text-xs text-slate-400">Hafta içi: 09:00 - 22:00</p>
                   </div>
                 </a>
 
