@@ -32,6 +32,16 @@ export default function Header() {
           >
             SSS
           </Link>
+          <a
+            className="text-sm font-semibold text-neutral-dark transition-colors hover:text-primary cursor-pointer"
+            href="#yorumlar"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('yorumlar')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Yorumlar
+          </a>
           <Link
             className="text-sm font-semibold text-neutral-dark transition-colors hover:text-primary"
             href="/iletisim"

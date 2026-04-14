@@ -339,7 +339,7 @@ export default function Home() {
       </section>
 
       {/* Müşteri Yorumları Section */}
-      <section className="bg-background-light px-6 py-20 md:px-20">
+      <section className="bg-background-light px-6 py-20 md:px-20" id="yorumlar">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between">
             <div className="text-center md:text-left">
