@@ -1,9 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
+  const reviewSliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollReviews = (direction: 'left' | 'right') => {
+    if (reviewSliderRef.current) {
+      const scrollAmount = 340;
+      reviewSliderRef.current.scrollBy({
+        left: direction === 'right' ? scrollAmount : -scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const handleWhatsAppClick = (grupName: string, grupPrice: string) => {
     const hayvanTipi = selectedType === 'kucuk' ? 'Küçük Baş' : 'Büyük Baş';
@@ -142,8 +153,8 @@ export default function Home() {
             <button
               onClick={() => setSelectedType('buyuk')}
               className={`flex-1 max-w-xs py-3 px-8 rounded-xl font-bold text-lg transition-all ${selectedType === 'buyuk'
-                  ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
-                  : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
+                ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
+                : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
                 }`}
             >
               Büyük Baş
@@ -151,8 +162,8 @@ export default function Home() {
             <button
               onClick={() => setSelectedType('kucuk')}
               className={`flex-1 max-w-xs py-3 px-8 rounded-xl font-bold text-lg transition-all ${selectedType === 'kucuk'
-                  ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
-                  : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
+                ? 'bg-gradient-to-r from-orange-100 to-orange-600 text-neutral-dark shadow-lg'
+                : 'bg-slate-800 text-white border border-slate-700 hover:border-orange-500'
                 }`}
             >
               Küçük Baş
@@ -326,6 +337,98 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Müşteri Yorumları Section */}
+      <section className="bg-background-light px-6 py-20 md:px-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between">
+            <div className="text-center md:text-left">
+              <div className="mb-3 flex items-center justify-center md:justify-start gap-2">
+
+              </div>
+              <h2 className="mb-4 text-3xl font-black text-neutral-dark md:text-4xl">
+                Hissedarlarımız Ne Diyor?
+              </h2>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                  ))}
+                </div>
+                <span className="text-lg font-bold text-neutral-dark">5.0</span>
+                <span className="text-sm text-neutral-muted">({yorumlarData.length} yorum)</span>
+              </div>
+            </div>
+            {/* Ok Butonları */}
+            <div className="mt-6 md:mt-0 flex items-center justify-center md:justify-end gap-3">
+              <button
+                onClick={() => scrollReviews('left')}
+                className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white text-neutral-dark shadow-sm transition-all hover:border-primary hover:bg-primary hover:text-neutral-dark hover:shadow-md active:scale-95"
+                aria-label="Önceki yorum"
+              >
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                onClick={() => scrollReviews('right')}
+                className="flex size-12 items-center justify-center rounded-full border border-slate-200 bg-white text-neutral-dark shadow-sm transition-all hover:border-primary hover:bg-primary hover:text-neutral-dark hover:shadow-md active:scale-95"
+                aria-label="Sonraki yorum"
+              >
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Yatay Slider */}
+          <div
+            ref={reviewSliderRef}
+            className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {yorumlarData.map((yorum) => (
+              <div
+                key={yorum.name}
+                className="group relative flex-shrink-0 w-[320px] overflow-hidden rounded-2xl border border-primary/10 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
+              >
+                <div className="absolute right-4 top-4 opacity-10 transition-opacity group-hover:opacity-20">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-primary">
+                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+                  </svg>
+                </div>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/5 font-bold text-primary">
+                    {yorum.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-neutral-dark">{yorum.name}</h4>
+                    <p className="text-[11px] text-slate-400">{yorum.date}</p>
+                  </div>
+                </div>
+                <div className="mb-3 flex text-yellow-400">
+                  {[...Array(yorum.rating)].map((_, i) => (
+                    <span key={i} className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                  ))}
+                </div>
+                <p className="text-sm leading-relaxed text-neutral-muted">
+                  &ldquo;{yorum.comment}&rdquo;
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Google Maps Link */}
+          <div className="mt-10 text-center">
+            <a
+              href="https://maps.app.goo.gl/PPR2PqB1Ec8ShH2Q7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-bold text-primary shadow-sm transition-all hover:bg-primary hover:text-neutral-dark hover:shadow-md"
+            >
+              <span className="material-symbols-outlined text-lg">map</span>
+              Google'daki Tüm Yorumları Gör
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -382,5 +485,62 @@ const sssData = [
     question: "Hisse grupları neye göre belirleniyor?",
     answer:
       "Hisse grupları, kurbanlık hayvanın cinsine, ağırlığına ve sunulan ek hizmetlere (parçalama, paketleme, teslimat hızı) göre farklı kategorilere ayrılmaktadır.",
+  },
+];
+
+const yorumlarData = [
+  {
+    name: "Hüsnü Yüksel",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Çok güzel ve hijyenik bir ortamda kesim yapıldı. Herkese tavsiye ederim.",
+  },
+  {
+    name: "Ayman Nashu",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Profesyonel ekip, güvenilir hizmet. Teşekkürler Uğurlu Kurban!",
+  },
+  {
+    name: "Ahmet Ölmez",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "İslami usullere uygun, temiz ve düzenli bir kesimhane. Memnun kaldık.",
+  },
+  {
+    name: "Fatih Madani",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Kurbanımız özenle kesildi ve paketlendi. Çok memnunuz.",
+  },
+  {
+    name: "Ali Imran",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Hizmet kalitesi üst düzey. Zamanında ve eksiksiz teslimat.",
+  },
+  {
+    name: "Sefa Çevik",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Her yıl tercih ediyoruz. Güvenilir ve kaliteli hizmet.",
+  },
+  {
+    name: "Muhammed Başdağ",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Ekip çok ilgili ve profesyonel. Kesinlikle tavsiye ediyorum.",
+  },
+  {
+    name: "Veli",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Temiz, hijyenik ve güvenilir. Kurban ibadetimiz huzurla tamamlandı.",
+  },
+  {
+    name: "Дәуірхан Аметов",
+    rating: 5,
+    date: "11 ay önce",
+    comment: "Harika bir deneyimdi. Çok teşekkür ederiz.",
   },
 ];
