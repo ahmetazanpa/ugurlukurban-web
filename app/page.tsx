@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
   const [selectedKurban, setSelectedKurban] = useState<{ title: string; description: string; image: string } | null>(null);
+  const [showPaymentConfirm, setShowPaymentConfirm] = useState(false);
   const reviewSliderRef = useRef<HTMLDivElement>(null);
 
   const scrollReviews = (direction: 'left' | 'right') => {
@@ -329,9 +330,9 @@ export default function Home() {
                   <h4 className="text-lg font-bold text-neutral-dark">
                     {item.question}
                   </h4>
-                  <span className="material-symbols-outlined text-primary">
+                  {/* <span className="material-symbols-outlined text-primary">
                     expand_more
-                  </span>
+                  </span> */}
                 </div>
                 <div className="mt-4 text-sm leading-relaxed text-neutral-muted">
                   {item.answer}
@@ -473,8 +474,7 @@ export default function Home() {
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText('14000');
-                    alert('Bağış tutarı (14.000 ₺) panoya kopyalandı! Açılacak sayfada "Bağış Tutarı" alanına yapıştırın.');
-                    window.open('https://bagis.ugurlar.org', '_blank');
+                    setShowPaymentConfirm(true);
                   }}
                   className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl"
                 >
@@ -491,6 +491,50 @@ export default function Home() {
                   Bilgi Al
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Ödeme Onay Modalı */}
+      {showPaymentConfirm && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={() => setShowPaymentConfirm(false)}
+        >
+          <div
+            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-4 flex items-center justify-center">
+              <div className="flex size-14 items-center justify-center rounded-full bg-primary/10">
+                <span className="material-symbols-outlined text-3xl text-primary">content_paste</span>
+              </div>
+            </div>
+            <h3 className="mb-2 text-center text-lg font-bold text-neutral-dark">
+              Tutar Kopyalandı!
+            </h3>
+            <p className="mb-6 text-center text-sm text-neutral-muted">
+              Bağış tutarı <span className="font-bold text-primary">14.000 ₺</span> panoya kopyalandı.
+              Açılacak sayfada &quot;Bağış Tutarı&quot; alanına yapıştırın.
+            </p>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  setShowPaymentConfirm(false);
+                  window.open('https://bagis.ugurlar.org', '_blank');
+                }}
+                className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-all hover:bg-primary/90"
+              >
+                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                Ödemeye Geç
+              </button>
+              <button
+                onClick={() => setShowPaymentConfirm(false)}
+                className="flex h-10 items-center justify-center rounded-xl text-sm font-semibold text-neutral-muted transition-all hover:bg-slate-100"
+              >
+                Vazgeç
+              </button>
             </div>
           </div>
         </div>
