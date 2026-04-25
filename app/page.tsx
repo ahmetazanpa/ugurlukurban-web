@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 
 export default function Home() {
   const [selectedType, setSelectedType] = useState('buyuk');
+  const [selectedKurban, setSelectedKurban] = useState<{ title: string; description: string; image: string } | null>(null);
   const reviewSliderRef = useRef<HTMLDivElement>(null);
 
   const scrollReviews = (direction: 'left' | 'right') => {
@@ -250,7 +251,8 @@ export default function Home() {
           {kurbanTurleri.map((item) => (
             <div
               key={item.title}
-              className="group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
+              onClick={() => setSelectedKurban(item)}
+              className="cursor-pointer group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
             >
               <div
                 className="mb-6 aspect-square w-full overflow-hidden rounded-xl bg-cover bg-center"
@@ -262,12 +264,12 @@ export default function Home() {
               <p className="text-sm leading-relaxed text-neutral-muted">
                 {item.description}
               </p>
-              {/* <div className="mt-auto flex items-center pt-4 text-sm font-bold text-primary">
-                    İncele{" "}
-                    <span className="material-symbols-outlined ml-1 text-sm transition-transform group-hover:translate-x-1">
-                      arrow_forward
-                    </span>
-                  </div>*/}
+              <div className="mt-auto flex items-center pt-4 text-sm font-bold text-primary">
+                İncele{" "}
+                <span className="material-symbols-outlined ml-1 text-sm transition-transform group-hover:translate-x-1">
+                  arrow_forward
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -277,7 +279,8 @@ export default function Home() {
           {kurbanTurleri.map((item) => (
             <div
               key={item.title}
-              className="flex-shrink-0 w-72 snap-center group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
+              onClick={() => setSelectedKurban(item)}
+              className="cursor-pointer flex-shrink-0 w-72 snap-center group flex flex-col rounded-2xl border border-primary/5 bg-white p-6 shadow-sm transition-all hover:border-primary/20 hover:shadow-xl"
             >
               <div
                 className="mb-6 aspect-square w-full overflow-hidden rounded-xl bg-cover bg-center"
@@ -429,6 +432,68 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Kurban Türü Modal */}
+      {selectedKurban && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={() => setSelectedKurban(null)}
+        >
+          <div
+            className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Üst Görsel */}
+            <div
+              className="h-48 w-full bg-cover bg-center"
+              style={{ backgroundImage: `url('${selectedKurban.image}')` }}
+            >
+              <div className="flex h-full w-full items-end bg-gradient-to-t from-black/70 to-transparent p-6">
+                <h3 className="text-2xl font-black text-white">{selectedKurban.title}</h3>
+              </div>
+            </div>
+
+            {/* Kapat Butonu */}
+            <button
+              onClick={() => setSelectedKurban(null)}
+              className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-black/60"
+            >
+              <span className="material-symbols-outlined text-xl">close</span>
+            </button>
+
+            {/* İçerik */}
+            <div className="p-6">
+              <p className="mb-6 text-sm leading-relaxed text-neutral-muted">
+                {selectedKurban.description}
+              </p>
+
+              {/* Butonlar */}
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={async () => {
+                    await navigator.clipboard.writeText('14000');
+                    alert('Bağış tutarı (14.000 ₺) panoya kopyalandı! Açılacak sayfada "Bağış Tutarı" alanına yapıştırın.');
+                    window.open('https://bagis.ugurlar.org', '_blank');
+                  }}
+                  className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold text-neutral-dark shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl"
+                >
+                  <span className="material-symbols-outlined text-lg">payment</span>
+                  Ödeme Yap — 14.000 ₺
+                </button>
+                <a
+                  href={`https://wa.me/905550710579?text=${encodeURIComponent(`${selectedKurban.title} hakkında bilgi almak istiyorum`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-[#25D366] bg-[#25D366]/10 text-sm font-bold text-[#25D366] transition-all hover:bg-[#25D366] hover:text-white"
+                >
+                  <i className="fa-brands fa-whatsapp text-lg"></i>
+                  Bilgi Al
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
